@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+textarea,
+input[type='phone'] {
+    @apply w-full border my-1 py-2 px-3 rounded-2xl;
+}
+
+textarea {
+    height: 140px;
+}
+
+button {
+    @apply bg-gray-300;
+}
+
+button.primary {
+    background-color: #F5385D;
+    @apply bg-primary p-2 w-full text-white rounded-2xl
+}
+
+
+.dropdownMenu {
+    
+    @apply absolute z-20 rounded-2xl bg-white mt-5 right-10 p-5 border-gray-300 border-2
+    
+
+}
+
+.rating {
+    @apply text-right
+}
+
+.reviewForm {
+    
+    @apply fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50
+}
+
+.reviewFormat {
+    @apply bg-white py-10 px-10 max-w-md w-full mx-4 rounded-2xl
+}
+
+.reviewDisplay {
+    @apply border-gray-300 border-2 rounded-2xl p-4 flex justify-between mt-5 shadow-sm
+}
+
+.locationSearch {
+    @apply absolute z-20 rounded-2xl bg-white mt-12  p-5 shadow-2xl items-center ml-[-125px] border-gray-200 border-2
+}
+
+.guestSearch {
+    @apply absolute z-20 rounded-3xl bg-white mt-12 p-5 shadow-2xl items-center border-gray-200 border-2
+}
+
+
+
