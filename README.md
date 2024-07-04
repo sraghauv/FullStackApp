@@ -28,13 +28,7 @@ Check out the live demo of the project [here](https://rs-airbnb-clone.vercel.app
 4. Leave reviews on properties you have stayed at.
 5. Create your own listings, complete with photos and descriptions.
 
-### Screenshots
-_Add screenshots here to showcase the application's interface and features._
-
-### License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ### Contact
-For any inquiries or feedback, please contact [your email].
+For any inquiries or feedback, please contact [sraghauv@gmail.com].
 
-Feel free to explore the code, suggest improvements, and contribute to the project!
