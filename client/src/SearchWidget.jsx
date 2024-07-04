@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 export default function SearchBar() {
     const [showLocSearch, setLocSearch] = useState(false);
     const [showGuestBar, setShowGuestBar] = useState(false);
     const [location, setLocation] = useState('');
     const [guests, setGuests] = useState();
+    const [redirect, setRedirect] = useState(false);
 
     function handleLocationSearch(ev) {
         ev.preventDefault();
@@ -56,20 +58,26 @@ export default function SearchBar() {
     }, [])
 
 
-
-    async function search() {
+    async function search(ev) {
+        ev.preventDefault();
         setLocSearch(false);
         setShowGuestBar(false);
-        const filters = {location, guests};
-        console.log(await axios.post('/filters', filters));
-
+        const filters = { location, guests };
+        try {
+            const response = await axios.post('/filters', filters);
+            console.log(response.data);
+            window.location.reload();  // Refresh the page without adding a question mark
+        } catch (error) {
+            console.error("Error posting filters:", error);
+        }
     }
 
 
 
 
+
     return (
-        <form  onSubmit={search} className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300">
+        <form  onSubmit={(ev) => search(ev)} className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300">
             <button className="bg-white" onClick={(ev) => handleLocationSearch(ev)}>{location}</button>
             {showLocSearch && (
                 <div className="locationSearch">
