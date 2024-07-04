@@ -68,12 +68,12 @@ function getUserDataFromToken(req) {
     });
 }
 
-app.get('/test', (req, res) => {
+app.get('/api/test', (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     res.json('test ok')
 });
 
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { name, email, password } = req.body;
     try {
@@ -89,7 +89,7 @@ app.post('/register', async (req, res) => {
     }
 })
 
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { email, password } = req.body;
     const userDoc = await User.findOne({ email: email })
@@ -117,7 +117,7 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.get('/profile', (req, res) => {
+app.get('/api/profile', (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { token } = req.cookies;
     if (token) {
@@ -137,11 +137,11 @@ app.get('/profile', (req, res) => {
 
 })
 
-app.post('/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
     res.cookie('token', '').json(true);
 })
 
-app.post('/upload-by-link', async (req, res) => {
+app.post('/api/upload-by-link', async (req, res) => {
     const { link } = req.body;
     const newName = 'photo' + Date.now() + '.jpg';
     try {
@@ -161,7 +161,7 @@ app.post('/upload-by-link', async (req, res) => {
 
 const photosMiddleware = multer({dest: '/tmp'});
 
-app.post('/upload', photosMiddleware.array('photos', 100), async (req, res) => {
+app.post('/api/upload', photosMiddleware.array('photos', 100), async (req, res) => {
     const uploadedFiles = [];
     for (let i = 0; i < req.files.length; i++) {
         const { path, originalname, mimetype } = req.files[i];
@@ -171,7 +171,7 @@ app.post('/upload', photosMiddleware.array('photos', 100), async (req, res) => {
     res.json(uploadedFiles);
 })
 
-app.post('/places', (req, res) => {
+app.post('/api/places', (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { token } = req.cookies;
     const {
@@ -217,7 +217,7 @@ app.post('/places', (req, res) => {
 });
 
 
-app.get('/user-places', (req, res) => {
+app.get('/api/user-places', (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { token } = req.cookies;
     jwt.verify(token, jwtSecret, {}, async (err, userData) => { 
@@ -226,13 +226,13 @@ app.get('/user-places', (req, res) => {
     });
 })
 
-app.get('/places/:id', async (req,res) => {
+app.get('/api/places/:id', async (req,res) => {
     mongoose.connect(process.env.MONGO_URL);
     const {id} = req.params;
     res.json(await Place.findById(id));
 })
 
-app.put('/places', async (req,res) => {
+app.put('/api/places', async (req,res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { token } = req.cookies;
     
@@ -274,7 +274,7 @@ app.put('/places', async (req,res) => {
 
 
 
-app.post('/booking', async (req,res) => {
+app.post('/api/booking', async (req,res) => {
     mongoose.connect(process.env.MONGO_URL);
     const userData = await getUserDataFromToken(req);
     const {place, checkIn, checkOut, numberOfGuests, name, phone, price} = req.body;
@@ -292,7 +292,7 @@ app.post('/booking', async (req,res) => {
 
 
 
-app.get('/booking', async (req, res) => {
+app.get('/api/booking', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const userData = await getUserDataFromToken(req);
     res.json(await Booking.find({user:userData.id}).populate('place'))
@@ -318,7 +318,7 @@ async function updateReview(bookingId, placeId, userData) {
     await placeDoc.save();
 }
 
-app.post('/review', async (req, res) => {
+app.post('/api/review', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const userData = await getUserDataFromToken(req);
     const {placeId, bookingId, comment, rating, name} = req.body;
@@ -332,20 +332,20 @@ app.post('/review', async (req, res) => {
    
 })
 
-app.get('/reviews/:id', async (req, res) => {
+app.get('/api/reviews/:id', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { id } = req.params;
     res.json(await Review.find({ place: id}))
 })
 
-app.get('/review/:id', async (req, res) => {
+app.get('/api/review/:id', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const userData = await getUserDataFromToken(req);
     const {id} = req.params;
     res.json(await Review.find({booking: id, user: userData.id}));
 })
 
-app.put('/review', async (req, res) => {
+app.put('/api/review', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const userData = await getUserDataFromToken(req);
     const { placeId, bookingId, comment, rating, name, reviewId } = req.body;
@@ -365,14 +365,14 @@ app.put('/review', async (req, res) => {
 
 })
 
-app.delete('/booking/:id', async (req,res) => {
+app.delete('/api/booking/:id', async (req,res) => {
     mongoose.connect(process.env.MONGO_URL);
     const {id} = req.params;
   
     res.json(await Booking.findByIdAndDelete(id))
 })
 
-app.put('/addFavorites', async (req, res) => {
+app.put('/api/addFavorites', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const userData = await getUserDataFromToken(req);
     const userDoc = await User.findById(userData.id);
@@ -383,7 +383,7 @@ app.put('/addFavorites', async (req, res) => {
     res.json(userDoc.favorites);
 })
 
-app.put('/removeFavorites', async (req,res) => {
+app.put('/api/removeFavorites', async (req,res) => {
     mongoose.connect(process.env.MONGO_URL);
     const userData = await getUserDataFromToken(req);
     const userDoc = await User.findById(userData.id);
@@ -393,7 +393,7 @@ app.put('/removeFavorites', async (req,res) => {
     res.json(userDoc.favorites);
 })
 
-app.get('/favorites', async (req, res) => {
+app.get('/api/favorites', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const userData = await getUserDataFromToken(req);
 
@@ -403,7 +403,7 @@ app.get('/favorites', async (req, res) => {
 })
 let filters = {};
 
-app.post('/filters', (req, res) => {
+app.post('/api/filters', (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { location, guests } = req.body;
      filters = {};
@@ -422,14 +422,14 @@ app.post('/filters', (req, res) => {
 
 
 
-app.get('/places', async (req, res) => {
+app.get('/api/places', async (req, res) => {
 
     res.json(await Place.find(filters))
     
     
 })
 
-app.get('/filters', (req, res) => {
+app.get('/api/filters', (req, res) => {
     res.json(filters);
    
 })
