@@ -17,6 +17,7 @@ const mime = require('mime-types');
 require('dotenv').config();
 
 const app = express();
+let filters = {};
 
 
 const bycrptSalt = bycrpt.genSaltSync(10);
@@ -401,7 +402,8 @@ app.get('/api/favorites', async (req, res) => {
     res.json(userDoc.favorites);
 
 })
-let filters = {};
+
+
 
 app.post('/api/filters', (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
@@ -423,7 +425,7 @@ app.post('/api/filters', (req, res) => {
 
 
 app.get('/api/places', async (req, res) => {
-
+    mongoose.connect(process.env.MONGO_URL);
     res.json(await Place.find(filters))
     
     
