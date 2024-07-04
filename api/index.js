@@ -362,6 +362,7 @@ app.put('/review', async (req, res) => {
     await reviewDoc.save();
     updateReview(bookingId, placeId, userData);
     res.json('ok');
+
 })
 
 app.delete('/booking/:id', async (req,res) => {
