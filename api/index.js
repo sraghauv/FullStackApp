@@ -426,7 +426,12 @@ app.post('/api/filters', (req, res) => {
 
 app.get('/api/places', async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
+    if(!filters) {
+        res.json(await Place.find());
+    }
+    else {
     res.json(await Place.find(filters))
+    }
     
     
 })

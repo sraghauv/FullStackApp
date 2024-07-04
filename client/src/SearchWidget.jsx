@@ -5,8 +5,8 @@ import { Navigate } from "react-router-dom";
 export default function SearchBar() {
     const [showLocSearch, setLocSearch] = useState(false);
     const [showGuestBar, setShowGuestBar] = useState(false);
-    const [location, setLocation] = useState('');
-    const [guests, setGuests] = useState();
+    const [location, setLocation] = useState('Anywhere');
+    const [guests, setGuests] = useState(0);
     const [redirect, setRedirect] = useState(false);
 
     function handleLocationSearch(ev) {
@@ -45,17 +45,17 @@ export default function SearchBar() {
     }
 
 
-    useEffect(() => {
-        axios.get('/filters').then((response => {
-            const { data } = response;
-            if (data) {
-                setLocation(data.region || 'Anywhere');
-                setGuests(data.maxGuests?.$gte || 0);
-            }
+    // useEffect(() => {
+    //     axios.get('/filters').then((response => {
+    //         const { data } = response;
+    //         if (data) {
+    //             setLocation(data.region || 'Anywhere');
+    //             setGuests(data.maxGuests?.$gte || 0);
+    //         }
 
-        }))
+    //     }))
 
-    }, [])
+    // }, [])
 
 
     async function search(ev) {
