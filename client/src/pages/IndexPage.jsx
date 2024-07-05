@@ -20,8 +20,7 @@ export default function IndexPage() {
     }, [user]);
 
     useEffect(() => {
-        axios.get('/places').then((response => {
-            
+        axios.get('/places').then((response => {    
             setPlaces(response.data);
         
         }))

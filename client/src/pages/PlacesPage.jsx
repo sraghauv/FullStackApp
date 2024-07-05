@@ -35,7 +35,7 @@ export default function PlacesPage() {
                     </Link>
                 
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 grid grid-cols-1 gap-4">
                     {places.length > 0 &&  places.map(place => (
                         <Link to={'/account/places/' + place._id} className="flex cursor-pointer gap-4 bg-gray-100 rounded-2xl p-4">
                             <div className="flex w-32 h-32 bg-gray-300 grow shrink-0">

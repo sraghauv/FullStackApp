@@ -45,18 +45,7 @@ export default function SearchBar() {
     }
 
 
-    // useEffect(() => {
-    //     axios.get('/filters').then((response => {
-    //         const { data } = response;
-    //         if (data) {
-    //             setLocation(data.region || 'Anywhere');
-    //             setGuests(data.maxGuests?.$gte || 0);
-    //         }
-
-    //     }))
-
-    // }, [])
-
+    
 
     async function search(ev) {
         ev.preventDefault();
