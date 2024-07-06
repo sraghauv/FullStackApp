@@ -10,10 +10,6 @@ This project is an Airbnb Clone, a full-stack web application developed using th
 - **Search Bar**: Search for listings easily using the built-in search functionality.
 - **Create Listings**: Users can create and manage their own listings, including uploading photos and providing descriptions.
 
-Sure, here's a revised version of your GitHub README section regarding the technologies used, specifically mentioning AWS S3:
-
----
-
 ## Technologies Used:
 
 ### Backend
