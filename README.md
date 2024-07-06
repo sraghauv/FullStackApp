@@ -10,12 +10,21 @@ This project is an Airbnb Clone, a full-stack web application developed using th
 - **Search Bar**: Search for listings easily using the built-in search functionality.
 - **Create Listings**: Users can create and manage their own listings, including uploading photos and providing descriptions.
 
-### Technologies Used
+Sure, here's a revised version of your GitHub README section regarding the technologies used, specifically mentioning AWS S3:
+
+---
+
+## Technologies Used:
+
+### Backend
 - **MongoDB**: For database management and storage.
 - **Express.js**: Backend framework for building RESTful APIs.
-- **React**: Frontend library for building user interfaces.
 - **Node.js**: JavaScript runtime for server-side development.
 - **JWT**: For secure user authentication.
+- **AWS S3**: Used for storing photos to facilitate seamless image uploads and retrieval.
+
+### Frontend
+- **React**: Frontend library for building user interfaces.
 - **Tailwind CSS**: For styling and responsive design.
 
 ### Live Demo
